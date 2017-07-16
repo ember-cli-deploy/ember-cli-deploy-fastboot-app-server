@@ -80,6 +80,12 @@ describe('fastboot-app-server plugin', function() {
 
         assert.deepEqual(JSON.parse(manifestContent), expectedJSON);
       });
+
+      it('adds a `fastbootArchivePrefix` to the deploy context that can be used in other hooks to work out a name for the fastboot build to deploy', function() {
+        let dataToMergeIntoDeployContext = plugin.setup(context);
+
+        assert.equal(dataToMergeIntoDeployContext.fastbootArchivePrefix, 'dist-');
+      });
     });
 
     describe('#willBuild', function() {
@@ -120,6 +126,7 @@ describe('fastboot-app-server plugin', function() {
 
         rimraf.sync('tmp');
 
+        context.fastbootArchivePrefix = 'dist-';
         context.distDir = DIST_DIR;
         context.revisionData = {
           revisionKey: '1234'

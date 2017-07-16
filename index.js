@@ -16,6 +16,8 @@ module.exports = {
       name: options.name,
 
       defaultConfig: {
+        fastbootArchivePrefix: 'dist-',
+
         distDir: function(context) {
           return context.distDir;
         },
@@ -40,9 +42,10 @@ module.exports = {
       },
 
       setup: function() {
+        let fastbootArchivePrefix     = this.readConfig('fastbootArchivePrefix');
         let downloaderManifestContent = this.readConfig('downloaderManifestContent');
 
-        return { downloaderManifestContent };
+        return { downloaderManifestContent, fastbootArchivePrefix };
       },
 
       willBuild: function() {
@@ -53,16 +56,17 @@ module.exports = {
         return RSVP.resolve();
       },
 
-      didPrepare: function() {
-        let distDir         = this.readConfig('distDir');
-        let revisionKey     = this.readConfig('revisionKey');
-        let fastbootDistDir = this.readConfig('fastbootDistDir');
+      didPrepare: function(context) {
+        let distDir               = this.readConfig('distDir');
+        let revisionKey           = this.readConfig('revisionKey');
+        let fastbootDistDir       = this.readConfig('fastbootDistDir');
+        let fastbootArchivePrefix = context.fastbootArchivePrefix;
 
         if (!fs.existsSync(fastbootDistDir)) {
           fs.mkdirSync(fastbootDistDir);
         }
 
-        let archiveName = 'dist-'+revisionKey+'.zip';
+        let archiveName = fastbootArchivePrefix+revisionKey+'.zip';
         let archivePath = path.join(fastbootDistDir, archiveName);
 
         let zip = new AdmZip();
