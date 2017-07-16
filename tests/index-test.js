@@ -62,7 +62,7 @@ describe('fastboot-app-server plugin', function() {
       assert.ok(plugin.configure);
       assert.ok(plugin.setup);
       assert.ok(plugin.willBuild);
-      assert.ok(plugin.prepare);
+      assert.ok(plugin.didPrepare);
     });
 
     describe('#setup', function() {
@@ -114,7 +114,7 @@ describe('fastboot-app-server plugin', function() {
       });
     });
 
-    describe('#prepare', function() {
+    describe('#didPrepare', function() {
       beforeEach(function() {
         let DIST_DIR = 'tmp/deploy-dist'
 
@@ -130,13 +130,13 @@ describe('fastboot-app-server plugin', function() {
       });
 
       it('zips the contents of `distDir` and writes them to `fastbootDistDir` as a zip tagged by `revisionKey`', function() {
-        plugin.prepare(context);
+        plugin.didPrepare(context);
 
         assert.ok(fs.existsSync('tmp/fastboot-deploy/dist-1234.zip'));
       });
 
       it('zips the content of distDir as expected', function() {
-        plugin.prepare(context);
+        plugin.didPrepare(context);
 
         let zip = new AdmZip('tmp/fastboot-deploy/dist-1234.zip');
         zip.extractAllTo('tmp/fastboot-deploy', true);
@@ -147,7 +147,7 @@ describe('fastboot-app-server plugin', function() {
       });
 
       it('adds fastbootArchiveName and fastbootArchivePath info to the deplyoment context', function() {
-        let info = plugin.prepare(context);
+        let info = plugin.didPrepare(context);
 
         assert.equal(info.fastbootArchiveName, 'dist-1234.zip');
         assert.equal(info.fastbootArchivePath, 'tmp/fastboot-deploy/dist-1234.zip');

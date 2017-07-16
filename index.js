@@ -53,7 +53,7 @@ module.exports = {
         return RSVP.resolve();
       },
 
-      prepare: function() {
+      didPrepare: function() {
         let distDir         = this.readConfig('distDir');
         let revisionKey     = this.readConfig('revisionKey');
         let fastbootDistDir = this.readConfig('fastbootDistDir');
