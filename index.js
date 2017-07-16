@@ -29,7 +29,7 @@ module.exports = {
           return context.commandOptions.revision || revisionKey;
         },
 
-        downloaderManifestContent: function() {
+        fastbootDownloaderManifestContent: function() {
           return function(bucket, key) {
             return `
               {
@@ -43,9 +43,9 @@ module.exports = {
 
       setup: function() {
         let fastbootArchivePrefix     = this.readConfig('fastbootArchivePrefix');
-        let downloaderManifestContent = this.readConfig('downloaderManifestContent');
+        let fastbootDownloaderManifestContent = this.readConfig('fastbootDownloaderManifestContent');
 
-        return { downloaderManifestContent, fastbootArchivePrefix };
+        return { fastbootDownloaderManifestContent, fastbootArchivePrefix };
       },
 
       willBuild: function() {

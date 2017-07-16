@@ -69,7 +69,7 @@ describe('fastboot-app-server plugin', function() {
       it('adds a function to the deploy context that can be used to write a fastboot-app-server manifest', function() {
         let dataToMergeIntoDeployContext = plugin.setup(context);
 
-        let downloaderManifestContent = dataToMergeIntoDeployContext.downloaderManifestContent;
+        let downloaderManifestContent = dataToMergeIntoDeployContext.fastbootDownloaderManifestContent;
 
         let manifestContent = downloaderManifestContent('bucket-name', 'revision-key');
 
