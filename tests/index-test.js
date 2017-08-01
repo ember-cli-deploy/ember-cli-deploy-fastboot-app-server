@@ -148,7 +148,7 @@ describe('fastboot-app-server plugin', function() {
         let zip = new AdmZip('tmp/fastboot-deploy/dist-1234.zip');
         zip.extractAllTo('tmp/fastboot-deploy', true);
 
-        let deployText = fs.readFileSync('tmp/fastboot-deploy/deploy.txt')
+        let deployText = fs.readFileSync('tmp/fastboot-deploy/dist/deploy.txt')
 
         assert.equal(deployText, 'deployment');
       });

@@ -70,7 +70,7 @@ module.exports = {
         let archivePath = path.join(fastbootDistDir, archiveName);
 
         let zip = new AdmZip();
-        zip.addLocalFolder(distDir);
+        zip.addLocalFolder(distDir, 'dist');
         zip.writeZip(archivePath);
 
         return {
