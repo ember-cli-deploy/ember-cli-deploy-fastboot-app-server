@@ -1,4 +1,4 @@
-# ember-cli-deploy-fastboot-app-server
+# ember-cli-deploy-fastboot-app-server [![CircleCI](https://circleci.com/gh/ember-cli-deploy/ember-cli-deploy-fastboot-app-server.svg?style=svg)](https://circleci.com/gh/ember-cli-deploy/ember-cli-deploy-fastboot-app-server)
 
 > An ember-cli-deploy plugin to deploy Ember FastBoot apps that are deployed via [fastboot-app-server](https://github.com/ember-fastboot/fastboot-app-server)
 
