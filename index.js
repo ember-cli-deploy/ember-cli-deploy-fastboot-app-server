@@ -71,6 +71,13 @@ module.exports = {
 
         let zip = new AdmZip();
         zip.addLocalFolder(distDir, 'dist');
+
+        // remove compression since certain files can't be DEFLATED
+        // such as .png, .jpg, .eot, etc.
+        zip.getEntries().forEach(function(currentValue) {
+          currentValue.header.method = 0;
+        });
+
         zip.writeZip(archivePath);
 
         return {
