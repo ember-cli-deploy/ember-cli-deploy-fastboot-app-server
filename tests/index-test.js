@@ -1,11 +1,11 @@
 /* eslint-env node */
 'use strict';
 
-const fs     = require('fs');
-const AdmZip = require('adm-zip');
-const mkdirp = require('mkdirp');
-const rimraf = require('rimraf');
-const assert = require('./helpers/assert');
+const fs         = require('fs');
+const decompress = require('decompress');
+const mkdirp     = require('mkdirp');
+const rimraf     = require('rimraf');
+const assert     = require('./helpers/assert');
 
 var stubProject = {
   name: function() {
@@ -137,27 +137,30 @@ describe('fastboot-app-server plugin', function() {
       });
 
       it('zips the contents of `distDir` and writes them to `fastbootDistDir` as a zip tagged by `revisionKey`', function() {
-        plugin.didPrepare(context);
-
-        assert.ok(fs.existsSync('tmp/fastboot-deploy/dist-1234.zip'));
+        return plugin.didPrepare(context)
+          .then(() => {
+            assert.ok(fs.existsSync('tmp/fastboot-deploy/dist-1234.zip'));
+          });
       });
 
       it('zips the content of distDir as expected', function() {
-        plugin.didPrepare(context);
+        return plugin.didPrepare(context)
+          .then(() => {
+            return decompress('tmp/fastboot-deploy/dist-1234.zip', 'tmp/fastboot-deploy');
+          })
+          .then(() => {
+            let deployText = fs.readFileSync('tmp/fastboot-deploy/dist/deploy.txt')
 
-        let zip = new AdmZip('tmp/fastboot-deploy/dist-1234.zip');
-        zip.extractAllTo('tmp/fastboot-deploy', true);
-
-        let deployText = fs.readFileSync('tmp/fastboot-deploy/dist/deploy.txt')
-
-        assert.equal(deployText, 'deployment');
+            assert.equal(deployText, 'deployment');
+          })
       });
 
       it('adds fastbootArchiveName and fastbootArchivePath info to the deplyoment context', function() {
-        let info = plugin.didPrepare(context);
-
-        assert.equal(info.fastbootArchiveName, 'dist-1234.zip');
-        assert.equal(info.fastbootArchivePath, 'tmp/fastboot-deploy/dist-1234.zip');
+        return plugin.didPrepare(context)
+          .then((info) => {
+            assert.equal(info.fastbootArchiveName, 'dist-1234.zip');
+            assert.equal(info.fastbootArchivePath, 'tmp/fastboot-deploy/dist-1234.zip');
+          });
       });
     });
   });

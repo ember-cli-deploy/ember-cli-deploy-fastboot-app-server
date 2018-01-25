@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "chai": "^4.0.2",
+    "decompress": "^4.2.0",
     "ember-cli": "2.13.3",
     "ember-cli-release": "^1.0.0-beta.2",
     "eslint": "^4.1.1",
@@ -30,7 +31,7 @@
   },
   "ember-addon": {},
   "dependencies": {
-    "adm-zip": "^0.4.7",
+    "archiver": "^2.1.1",
     "ember-cli-deploy-plugin": "^0.2.9",
     "rimraf": "^2.6.1",
     "rsvp": "^3.6.0"
