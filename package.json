@@ -12,7 +12,10 @@
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ember-cli-deploy/ember-cli-deploy-fastboot-app-server"
+  },
   "scripts": {
     "test": "node tests/runner.js && ./node_modules/.bin/eslint index.js lib/* tests/**/*-test.js"
   },
