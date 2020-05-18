@@ -169,7 +169,7 @@ describe('fastboot-app-server plugin', function() {
       });
     });
 
-    describe('#didPrepare/globPattern', function() {
+    describe('#didPrepare/globPattern - ignore all .map files', function() {
       beforeEach(function() {
         context.config['fastboot-app-server'].ignoreFiles = "**/*.map";
         plugin.configure(context);
@@ -197,7 +197,7 @@ describe('fastboot-app-server plugin', function() {
           });
       });
 
-      it('globPattern option zips the content of distDir as expected', function() {
+      it('compressed zip should not contain any .map files - all other files should be included', function() {
         return plugin.didPrepare(context)
           .then(() => {
             return decompress('tmp/fastboot-deploy/dist-1234.zip', 'tmp/fastboot-deploy');
