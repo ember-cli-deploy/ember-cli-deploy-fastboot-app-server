@@ -206,8 +206,8 @@ describe('fastboot-app-server plugin', function() {
             let deployText = fs.readFileSync('tmp/fastboot-deploy/dist/deploy.txt')
 
             assert.equal(deployText, 'deployment');
-            assert.ok(fs.existsSync('tmp/fastboot-deploy/dist/assets/app.js'));
-            assert.notOk(fs.existsSync('tmp/fastboot-deploy/dist/assets/app.map'));
+            assert.ok(fs.existsSync('tmp/fastboot-deploy/dist/assets/app.js'), 'app.js is included in zipped files');
+            assert.notOk(fs.existsSync('tmp/fastboot-deploy/dist/assets/app.map'), 'app.map is not included in zipped files');
           })
       });
 
