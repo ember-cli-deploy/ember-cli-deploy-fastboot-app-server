@@ -68,6 +68,12 @@ The prefix that will be used in combination with a revisionkey to build up the i
 
 *Default:* `dist-`
 
+### ignoreFiles
+
+Allows to specify a glob pattern to exclude certain files. To exclude all `*.map` files, set it to `"**/*.map"`.
+
+*Default"* `undefined`
+
 ### fastbootDownloaderManifestContent
 
 A function that gets added to the deploy context so that other plugins can update an app-manifest file that is used by [fastboot-app-server notifiers](https://github.com/ember-fastboot/fastboot-app-server#notifiers) and [-downloaders](https://github.com/ember-fastboot/fastboot-app-server#downloaders) to update the FastBoot-app served via `fastboot-app-server`.

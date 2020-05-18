@@ -60,6 +60,7 @@ module.exports = {
         let distDir               = this.readConfig('distDir');
         let revisionKey           = this.readConfig('revisionKey');
         let fastbootDistDir       = this.readConfig('fastbootDistDir');
+        let ignoreFiles           = this.readConfig('ignoreFiles');
         let fastbootArchivePrefix = context.fastbootArchivePrefix;
 
         if (!fs.existsSync(fastbootDistDir)) {
@@ -76,9 +77,18 @@ module.exports = {
         let output = fs.createWriteStream(archivePath);
 
         zip.pipe(output);
+        if (ignoreFiles) {
+          zip.glob("**/*", {
+            cwd: distDir,
+            ignore: ignoreFiles
+          }, {
+            prefix: '/dist/'
+          });
+        } else {
+          zip.directory(distDir, 'dist');
+        }
 
         return zip
-          .directory(distDir, 'dist')
           .finalize()
           .then(() => {
             return {
